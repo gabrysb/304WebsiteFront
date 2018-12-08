@@ -84,7 +84,7 @@ class Login extends Component {
                         </label>
                     </div>
                     <div className="container" style={{backgroundColor: '#f1f1f1'}}>
-                        <span className="psw">Forgot <a href="#">password?</a></span>
+                        <span className="psw">Forgot <a href="#signup">password?</a></span>
                     </div>
                 </form>
             </div>
