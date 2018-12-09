@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './Account.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-class Login extends Component {
+class Account extends Component {
   
     constructor(props){
         super(props);
