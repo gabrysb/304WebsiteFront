@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Recipeinput.css';
-/* import * as jquery from jQuery;
+import $ from 'jquery';
 
 var max_fields      = 10;
 var wrapper         = $(".input_fields_wrap"); 
@@ -20,7 +20,7 @@ $(remove_button).click(function(e){
     if(total_fields>1){
         wrapper[0].childNodes[total_fields-1].remove();
     }
-}); */
+});
 
 
 class Recipeinput extends Component {
