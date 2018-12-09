@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import './Header.css';
-import FontAwesomeIcon from 'react-fontawesome';
-import button from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Header extends Component {

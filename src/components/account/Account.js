@@ -65,7 +65,6 @@ class Login extends Component {
         return (
 
             <div class="container">
-<<<<<<< HEAD
             THIS PAGE NEEDS AUTHENTICATION
 
                 <div class="row">
@@ -98,8 +97,4 @@ class Login extends Component {
         );
     }
 }
-<<<<<<< HEAD
 export default Account;
-=======
-export default Login;
->>>>>>> account_page
