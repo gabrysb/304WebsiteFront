@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 //import the css for the app
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 //import the app components
 import Header from './components/header/Header';
