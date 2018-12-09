@@ -8,6 +8,10 @@ import Header from './components/header/Header';
 import Grid from './components/grid/Grid';
 import Login from './components/login/Login';
 import Signup from './components/signup/Signup';
+import Account from './components/account/Account';
+import Recipes from './components/recipes/Recipes';
+import Recipeinput from './components/recipeinput/Recipeinput';
+
 
 import CallAPI from './CallAPI';
 
@@ -44,6 +48,10 @@ class App extends Component {
     this.loginUser = this.loginUser.bind(this);
     this.showHome = this.showHome.bind(this);
     this.showSignup = this.showSignup.bind(this);
+    this.showLogin = this.showLogin.bind(this);
+    this.showRecipeInput = this.showRecipeInput.bind(this);
+    this.showAllRecipes = this.showAllRecipes.bind(this);
+    this.showAccount = this.showAccount.bind(this);
 
   }
   //this function will be called by the header component when the user click search button
@@ -142,11 +150,55 @@ class App extends Component {
   showSignup(){
     
     //in case we were showing an article, remove it from the state
-    //if(this.state.currentArticle !== null)
-    //  this.setState({currentArticle: null});
+    if(this.state.currentArticle !== null)
+      this.setState({currentArticle: null});
     
     this.setState({currentView:"signup"});
     console.log("Reached here - signup");
+   
+  }
+
+  showLogin(){
+    
+    //in case we were showing an article, remove it from the state
+    if(this.state.currentArticle !== null)
+      this.setState({currentArticle: null});
+    
+    this.setState({currentView:"login"});
+     
+   
+  }
+
+  showRecipeInput(){
+    
+    //in case we were showing an article, remove it from the state
+    if(this.state.currentArticle !== null)
+      this.setState({currentArticle: null});
+    
+    this.setState({currentView:"recipeinput"});
+     
+   
+  }
+
+  showAllRecipes(){
+    
+    //in case we were showing an article, remove it from the state
+    if(this.state.currentArticle !== null)
+      this.setState({currentArticle: null});
+    
+    this.setState({currentView:"recipes"});
+     
+   
+  }
+
+  showAccount(){
+    
+    //in case we were showing an article, remove it from the state
+    if(this.state.currentArticle !== null)
+      this.setState({currentArticle: null});
+    
+    this.setState({currentView:"account"});
+     
    
   }
 
@@ -184,11 +236,20 @@ class App extends Component {
     else if(this.state.currentView === "signup"){
       whatToRender = <Signup />;
     }
+    else if(this.state.currentView === "account"){
+      whatToRender = <Account />;
+    }
+    else if(this.state.currentView === "recipes"){
+      whatToRender = <Recipes />;
+    }
+    else if(this.state.currentView === "recipeinput"){
+      whatToRender = <Recipeinput />;
+    }
     //after rendering the header, render the grid
     // pass the thumbnails and set the css responsive class
     return (
       <div>
-        <Header title="Yummy" logo={logo} onSearchClick={this.onSearch} backgroundColor="#140B47" onClickTitle={this.showHome} />
+        <Header title="Yummy" logo={logo} onSearchClick={this.onSearch} backgroundColor="#140B47" onClickTitle={this.showHome} onClickSignup={this.showSignup} onClickLogIn={this.showLogin} onClickRecipeInput={this.showRecipeInput} onClickRecipes={this.showAllRecipes} onClickAccount={this.showAccount} />
         {whatToRender}
       </div>
     );
