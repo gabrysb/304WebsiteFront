@@ -7,7 +7,7 @@ class Grid extends Component {
   
     //we divided the grid into 3 components
     //the grid iteself
-    //the rwo
+    //the row
     //the card or thumbnail
     //the grid iterates throw the recieved rows and generate the required number of rows
 
