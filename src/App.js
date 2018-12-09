@@ -43,6 +43,7 @@ class App extends Component {
     this.updateBlogsData = this.updateBlogsData.bind(this);
     this.loginUser = this.loginUser.bind(this);
     this.showHome = this.showHome.bind(this);
+    this.showSignup = this.showSignup.bind(this);
 
   }
   //this function will be called by the header component when the user click search button
@@ -138,6 +139,17 @@ class App extends Component {
    
   }
 
+  showSignup(){
+    
+    //in case we were showing an article, remove it from the state
+    //if(this.state.currentArticle !== null)
+    //  this.setState({currentArticle: null});
+    
+    this.setState({currentView:"signup"});
+    console.log("Reached here - signup");
+   
+  }
+
   //we will use this life cycle method to call the data
   //we need to call the data once the component is ready
   //otherwise setting state will not work properly
@@ -161,7 +173,7 @@ class App extends Component {
       whatToRender = <Grid items={tempArr} colClass="col-m-6" onClick={this.handleThumbnailClicked} rowLength={1} />;
     }
     else if(this.state.currentView === "login"){
-      whatToRender = <Login loginButtonColor="#800000" onSubmit={this.loginUser} loginError={this.state.loginError}/>;
+      whatToRender = <Login loginButtonColor="#800011" onSubmit={this.loginUser} loginError={this.state.loginError} foobar={this.showSignup}/>;
     }
     else if(this.state.currentView === "logout"){
       whatToRender = null;
@@ -176,7 +188,7 @@ class App extends Component {
     // pass the thumbnails and set the css responsive class
     return (
       <div>
-        <Header title="My Own Blog" logo={logo} onSearchClick={this.onSearch} backgroundColor="#800000" onClickTitle={this.showHome} />
+        <Header title="Yummy" logo={logo} onSearchClick={this.onSearch} backgroundColor="#140B47" onClickTitle={this.showHome} />
         {whatToRender}
       </div>
     );
