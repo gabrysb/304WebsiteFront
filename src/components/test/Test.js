@@ -7,11 +7,7 @@ class Test extends Component {
         super(props);
 
         this.state = {
-            loginButtonColor:{backgroundColor:this.props.loginButtonColor},
-            testInput: '',
-            errors : {
-                testInput: false
-            }
+            testField: ''
         };
         
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -30,6 +26,7 @@ class Test extends Component {
         });
     }
 
+
     handleLoginClick(event){
 
         //prevent form submission
@@ -38,42 +35,33 @@ class Test extends Component {
         //create new object to assign new error values
         let newErrors = {};
 
-        newErrors.testInput = this.state.testInput === '' ? true:false; 
+        newErrors.testField = this.state.testField === '' ? true:false; 
         
-       if(newErrors.testInput === false){
+        if(newErrors.testField === false){
             this.props.onSubmit({
-                username: this.state.testInput,
-                rememberMe: false
+                testField: this.state.testField
             })
-       }
-       else{
+        }
+        else{
             this.setState({errors:newErrors});
-       }
+        }
 
        
     }
-
-    
 
     render() {
 
         return (
 
             <div className="loginForm">
-                <form action="action_page.php">
+                <form action="submit">
                     <div className="container">
 
-                        <label htmlFor="testInput"><b>Test</b></label>
-                        <input type="text" placeholder="Enter Username" name="testInput" onChange={this.handleInputChange} value={this.state.testInput} />
+                        <label htmlFor="testField"><b>Test</b></label>
+                        <input type="text" placeholder="Enter test" name="testField" onChange={this.handleInputChange} value={this.state.testInput} />
 
-                        <button type="submit" style={this.state.loginButtonColor} onClick={this.handleLoginClick}>Login</button> 
-                        
-                        <label>
-                            <input type="checkbox" defaultChecked="checked" name="remember" /> Remember me
-                        </label>
-                    </div>
-                    <div className="container" style={{backgroundColor: '#f1f1f1'}}>
-                        <span className="psw">Forgot <a href="#signup" onClick={this.props.foobar}>password?</a></span>
+                        <button type="submit" onClick={this.handleLoginClick}>Submit</button> 
+
                     </div>
                 </form>
             </div>
