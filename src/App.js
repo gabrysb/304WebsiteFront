@@ -12,6 +12,7 @@ import Signup from './components/signup/Signup';
 import Account from './components/account/Account';
 import Recipes from './components/recipes/Recipes';
 import Recipeinput from './components/recipeinput/Recipeinput';
+import Test from './components/test/Test';
 
 
 import CallAPI from './CallAPI';
@@ -30,7 +31,7 @@ class App extends Component {
     //we setup our initial state in the constuctor
     //by default we will show login component at the first time the app starts
     this.state = {
-      currentView : "login",
+      currentView : "test",
       items : [],
       homeItems: [],
       currentArticle: null,
@@ -53,6 +54,7 @@ class App extends Component {
     this.showRecipeInput = this.showRecipeInput.bind(this);
     this.showAllRecipes = this.showAllRecipes.bind(this);
     this.showAccount = this.showAccount.bind(this);
+    this.showTest = this.showTest.bind(this);
 
   }
   //this function will be called by the header component when the user click search button
@@ -203,6 +205,17 @@ class App extends Component {
    
   }
 
+  showTest(){
+    
+    //in case we were showing an article, remove it from the state
+    if(this.state.currentArticle !== null)
+      this.setState({currentArticle: null});
+    
+    this.setState({currentView:"test"});
+     
+   
+  }
+
   //we will use this life cycle method to call the data
   //we need to call the data once the component is ready
   //otherwise setting state will not work properly
@@ -246,11 +259,14 @@ class App extends Component {
     else if(this.state.currentView === "recipeinput"){
       whatToRender = <Recipeinput />;
     }
+    else if(this.state.currentView === "test"){
+      whatToRender = <Test />;
+    }
     //after rendering the header, render the grid
     // pass the thumbnails and set the css responsive class
     return (
       <div>
-        <Header title="Yummy" logo={logo} onSearchClick={this.onSearch} backgroundColor="#140B47" onClickTitle={this.showHome} onClickSignup={this.showSignup} onClickLogIn={this.showLogin} onClickRecipeInput={this.showRecipeInput} onClickRecipes={this.showAllRecipes} onClickAccount={this.showAccount} />
+        <Header title="Yummy" logo={logo} onSearchClick={this.onSearch} backgroundColor="#140B47" onClickTitle={this.showHome} onClickSignup={this.showSignup} onClickLogIn={this.showLogin} onClickRecipeInput={this.showRecipeInput} onClickRecipes={this.showAllRecipes} onClickAccount={this.showAccount} onClickTest={this.showTest} />
         {whatToRender}
       </div>
     );

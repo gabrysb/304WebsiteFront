@@ -19,6 +19,7 @@ class Header extends Component {
         this.recipeInpClick = this.recipeInpClick.bind(this);
         this.recipesClick = this.recipesClick.bind(this);
         this.accountClick = this.accountClick.bind(this);
+        this.testClick = this.testClick.bind(this);
 
     }
 
@@ -79,6 +80,14 @@ class Header extends Component {
         }
             
     }
+
+    testClick(event){
+
+        if(this.props.onClickTest != null){
+            this.props.onClickTest();
+        }
+            
+    }
   
     render() {
 
@@ -93,6 +102,7 @@ class Header extends Component {
                 <button type="button" onClick={this.recipeInpClick} class="btn btn-light">Recipe Input</button>
                 <button type="button" onClick={this.recipesClick} class="btn btn-light">All Recipes</button>
                 <button type="button" onClick={this.accountClick} class="btn btn-light">My Account</button>
+                <button type="button" onClick={this.testClick} class="btn btn-light">Test</button>
                 </div>
                 <div className="header-right">
                     <div className="search-container">
