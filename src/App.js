@@ -2,12 +2,18 @@
 import React, { Component } from 'react';
 //import the css for the app
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 //import the app components
 import Header from './components/header/Header';
 import Grid from './components/grid/Grid';
 import Login from './components/login/Login';
 import Signup from './components/signup/Signup';
+import Account from './components/account/Account';
+import Recipes from './components/recipes/Recipes';
+import Recipeinput from './components/recipeinput/Recipeinput';
+import Test from './components/test/Test';
+
 
 import CallAPI from './CallAPI';
 
@@ -25,7 +31,7 @@ class App extends Component {
     //we setup our initial state in the constuctor
     //by default we will show login component at the first time the app starts
     this.state = {
-      currentView : "login",
+      currentView : "test",
       items : [],
       homeItems: [],
       currentArticle: null,
@@ -43,6 +49,12 @@ class App extends Component {
     this.updateBlogsData = this.updateBlogsData.bind(this);
     this.loginUser = this.loginUser.bind(this);
     this.showHome = this.showHome.bind(this);
+    this.showSignup = this.showSignup.bind(this);
+    this.showLogin = this.showLogin.bind(this);
+    this.showRecipeInput = this.showRecipeInput.bind(this);
+    this.showAllRecipes = this.showAllRecipes.bind(this);
+    this.showAccount = this.showAccount.bind(this);
+    this.showTest = this.showTest.bind(this);
 
   }
   //this function will be called by the header component when the user click search button
@@ -138,6 +150,72 @@ class App extends Component {
    
   }
 
+  showSignup(){
+    
+    //in case we were showing an article, remove it from the state
+    if(this.state.currentArticle !== null)
+      this.setState({currentArticle: null});
+    
+    this.setState({currentView:"signup"});
+    console.log("Reached here - signup");
+   
+  }
+
+  showLogin(){
+    
+    //in case we were showing an article, remove it from the state
+    if(this.state.currentArticle !== null)
+      this.setState({currentArticle: null});
+    
+    this.setState({currentView:"login"});
+     
+   
+  }
+
+  showRecipeInput(){
+    
+    //in case we were showing an article, remove it from the state
+    if(this.state.currentArticle !== null)
+      this.setState({currentArticle: null});
+    
+    this.setState({currentView:"recipeinput"});
+     
+   
+  }
+
+  showAllRecipes(){
+    
+    //in case we were showing an article, remove it from the state
+    if(this.state.currentArticle !== null)
+      this.setState({currentArticle: null});
+    
+    this.setState({currentView:"recipes"});
+     
+   
+  }
+
+  showAccount(){
+    
+    //in case we were showing an article, remove it from the state
+    if(this.state.currentArticle !== null)
+      this.setState({currentArticle: null});
+    
+    this.setState({currentView:"account"});
+     
+   
+  }
+
+  showTest(){
+    
+    //in case we were showing an article, remove it from the state
+    if(this.state.currentArticle !== null)
+      this.setState({currentArticle: null});
+    
+    this.setState({currentView:"test"});
+     
+   
+  }
+
   //we will use this life cycle method to call the data
   //we need to call the data once the component is ready
   //otherwise setting state will not work properly
@@ -161,7 +239,7 @@ class App extends Component {
       whatToRender = <Grid items={tempArr} colClass="col-m-6" onClick={this.handleThumbnailClicked} rowLength={1} />;
     }
     else if(this.state.currentView === "login"){
-      whatToRender = <Login loginButtonColor="#800000" onSubmit={this.loginUser} loginError={this.state.loginError}/>;
+      whatToRender = <Login loginButtonColor="#800011" onSubmit={this.loginUser} loginError={this.state.loginError} foobar={this.showSignup}/>;
     }
     else if(this.state.currentView === "logout"){
       whatToRender = null;
@@ -172,11 +250,23 @@ class App extends Component {
     else if(this.state.currentView === "signup"){
       whatToRender = <Signup />;
     }
+    else if(this.state.currentView === "account"){
+      whatToRender = <Account />;
+    }
+    else if(this.state.currentView === "recipes"){
+      whatToRender = <Recipes />;
+    }
+    else if(this.state.currentView === "recipeinput"){
+      whatToRender = <Recipeinput />;
+    }
+    else if(this.state.currentView === "test"){
+      whatToRender = <Test />;
+    }
     //after rendering the header, render the grid
     // pass the thumbnails and set the css responsive class
     return (
       <div>
-        <Header title="My Own Blog" logo={logo} onSearchClick={this.onSearch} backgroundColor="#800000" onClickTitle={this.showHome} />
+        <Header title="Yummy" logo={logo} onSearchClick={this.onSearch} backgroundColor="#140B47" onClickTitle={this.showHome} onClickSignup={this.showSignup} onClickLogIn={this.showLogin} onClickRecipeInput={this.showRecipeInput} onClickRecipes={this.showAllRecipes} onClickAccount={this.showAccount} onClickTest={this.showTest} />
         {whatToRender}
       </div>
     );
