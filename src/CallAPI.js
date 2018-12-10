@@ -50,9 +50,9 @@ class CallAPI {
     deleteUser(data){
 
     }
-    getBlogs(pageLength, pageNumber, callback){
+    getRecipes(pageLength, pageNumber, callback){
         
-        let url = config.api_get_blogs;
+        let url = config.api_get_recipes;
         axios.get(url,{ 
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -68,16 +68,16 @@ class CallAPI {
             callback(error);
         });
     }
-    getBlog(id){
+    getRecipe(id){
 
     }
-    createBlog(data){
+    createRecipe(data){
 
     }
-    updateBlog(data){
+    updateRecipe(data){
 
     }
-    deleteBlog(data){
+    deleteRecipe(data){
 
     }
     addFavourite(data){

@@ -31,8 +31,14 @@ class Test extends Component {
 
         //prevent form submission
         event.preventDefault();
+        const data = new FormData(event.target);
+        
+        fetch(' http://localhost:8080/api/v1.0/test', {
+        method: 'POST',
+        body: data,
+        });
 
-        //create new object to assign new error values
+        /* //create new object to assign new error values
         let newErrors = {};
 
         newErrors.testField = this.state.testField === '' ? true:false; 
@@ -45,7 +51,7 @@ class Test extends Component {
         else{
             this.setState({errors:newErrors});
         }
-
+ */
        
     }
 
@@ -54,13 +60,13 @@ class Test extends Component {
         return (
 
             <div className="loginForm">
-                <form action="submit">
+                <form onSubmit={this.handleLoginClick}>
                     <div className="container">
 
                         <label htmlFor="testField"><b>Test</b></label>
-                        <input type="text" placeholder="Enter test" name="testField" onChange={this.handleInputChange} value={this.state.testInput} />
+                        <input type="text" placeholder="Enter test" name="testField" onChange={this.handleInputChange} value={this.state.testField} />
 
-                        <button type="submit" onClick={this.handleLoginClick}>Submit</button> 
+                        <button type="submit">Submit</button> 
 
                     </div>
                 </form>
