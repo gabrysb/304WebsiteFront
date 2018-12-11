@@ -19,6 +19,7 @@ class Header extends Component {
         this.recipeInpClick = this.recipeInpClick.bind(this);
         this.recipesClick = this.recipesClick.bind(this);
         this.accountClick = this.accountClick.bind(this);
+        this.testClick = this.testClick.bind(this);
 
     }
 
@@ -79,6 +80,14 @@ class Header extends Component {
         }
             
     }
+
+    testClick(event){
+
+        if(this.props.onClickTest != null){
+            this.props.onClickTest();
+        }
+            
+    }
   
     render() {
 
@@ -88,17 +97,18 @@ class Header extends Component {
             <div className="header" style={this.state.headerStyle}>
                 <img src={this.props.logo} alt="React logo" /><a href="#default" className="logo" onClick={this.handleTitleClick}> {this.props.title}</a>
                 <div className="header-links">
-                <button type="button" onClick={this.signUpClick} class="btn btn-light">Sign Up</button>
-                <button type="button" onClick={this.logInClick} class="btn btn-light">Log In</button>
-                <button type="button" onClick={this.recipeInpClick} class="btn btn-light">Recipe Input</button>
-                <button type="button" onClick={this.recipesClick} class="btn btn-light">All Recipes</button>
-                <button type="button" onClick={this.accountClick} class="btn btn-light">My Account</button>
+                <button type="button" onClick={this.signUpClick} className="btn btn-light">Sign Up</button>
+                <button type="button" onClick={this.logInClick} className="btn btn-light">Log In</button>
+                <button type="button" onClick={this.recipeInpClick} className="btn btn-light">Recipe Input</button>
+                <button type="button" onClick={this.recipesClick} className="btn btn-light">All Recipes</button>
+                <button type="button" onClick={this.accountClick} className="btn btn-light">My Account</button>
+                <button type="button" onClick={this.testClick} className="btn btn-light">Test</button>
                 </div>
                 <div className="header-right">
                     <div className="search-container">
                         <form action="">
                             <input type="text" placeholder="Search.." name="txtSearch" onChange={this.handleTextChange} value={this.state.searchTerm}/>
-                            <button type="submit" onClick={(e) =>{ e.preventDefault(); this.props.onSearchClick(this.state.searchTerm)} } class="btn btn-default" aria-label="Search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            <button type="submit" onClick={(e) =>{ e.preventDefault(); this.props.onSearchClick(this.state.searchTerm)} } className="btn btn-default" aria-label="Search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                         </form>
                     </div>
                 </div>
