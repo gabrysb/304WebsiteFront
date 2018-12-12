@@ -14,6 +14,10 @@ img {
     border-radius: 5px 5px 0 0;
 }
 
+.test{
+    margin-left: 20px;
+}
+
 .container {
     padding: 2px 16px;
 }
@@ -33,7 +37,7 @@ img {
 }
 
 .bookmark {
-    margin-top : -4px;
+    margin-top : 4px;
     position: absolute;
     left: 85%;
     color:white;

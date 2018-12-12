@@ -55,7 +55,7 @@ class Grid extends Component {
                     <div className={this.props.colClass} key={item.id}>
                         <Card   image={item.photo} 
                                 title={item.title} 
-                                article={item.body} 
+                                article={item.description} 
                                 onClick = {this.props.onClick}
                                 id ={item.id}
                         />

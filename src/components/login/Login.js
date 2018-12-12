@@ -59,13 +59,13 @@ class Login extends Component {
     }
 
     
-
     render() {
 
         return (
 
             <div className="loginForm">
-                <form action="action_page.php">
+                <h2>Log In</h2>
+                <form onSubmit={this.handleLoginClick}>
                     <div className="imgcontainer">
                         <img src={login_avatar} alt="Avatar" className="avatar" />
                     </div>
@@ -79,7 +79,7 @@ class Login extends Component {
                         <input type="password" placeholder="Enter Password" name="txtPassword" onChange={this.handleInputChange} value={this.state.txtPassword} />
                         {this.state.errors.txtPassword ? <div className="error">password is required</div>: null}
 
-                        <button type="submit" style={this.state.loginButtonColor} onClick={this.handleLoginClick}>Login</button> 
+                        <button type="submit" style={this.state.loginButtonColor}>Login</button> 
                         
                         <label>
                             <input type="checkbox" defaultChecked="checked" name="remember" /> Remember me
