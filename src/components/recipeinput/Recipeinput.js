@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Recipeinput.css';
 import $ from 'jquery';
+import axios from "axios";
 
 class Recipeinput extends Component {
   
@@ -15,7 +16,8 @@ class Recipeinput extends Component {
             recipeCat: '',
             recipeSteps: '',
             recipeImage: '',
-            recipeStatus: ''
+            recipeStatus: '',
+            uploadStatus: false
             /* errors : {
                 recipeName: false,
                 recipeDesc: false
@@ -24,6 +26,7 @@ class Recipeinput extends Component {
         
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleSubmitClick = this.handleSubmitClick.bind(this);
+        this.handleUploadImage = this.handleUploadImage.bind(this);
     }
 
     handleInputChange(event){
@@ -49,8 +52,26 @@ class Recipeinput extends Component {
         }
     }
 
+    handleUploadImage(event) {
+        event.preventDefault();
+    
+        const data = new FormData();
+        data.append('file', this.uploadInput.files[0]);
+        data.append('filename', this.fileName.value);
+    
+        axios.post('http://localhost:3000/upload', data)
+            .then(function (response) {
+                this.setState({ imageURL: `http://localhost:3000/${'body'.file}`, uploadStatus: true });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+      }
+
+
     handleSubmitClick(event){
 
+        this.handleUploadImage()
         //prevent form submission
         event.preventDefault();
 
@@ -99,6 +120,8 @@ class Recipeinput extends Component {
        
     }
 
+    
+
 
     render() {
 
@@ -110,7 +133,7 @@ class Recipeinput extends Component {
                     <div className="container">
                         <label htmlFor="recipeImage" ><b>Image</b></label>
                         <p>
-                        <input type="file" name="recipeImage" onChange={this.handleInputChange} value={this.state.recipeImage} /></p>
+                        <input className="form-control-file" ref={(ref) => { this.fileName = ref; }} type="file" name="recipeImage" onChange={this.handleInputChange} value={this.state.recipeImage} /></p>
                         <img id="imgPrev" src="http://placehold.it/180" alt="your image" />
                         
                         <p></p>
@@ -120,12 +143,8 @@ class Recipeinput extends Component {
                         <label htmlFor="recipeDesc" ><b>Description</b></label>
                         <input type="text" name="recipeDesc" onChange={this.handleInputChange} value={this.state.recipeDesc} />
 
-                        <label htmlFor="recipeSteps" ><b>Tags</b></label>
+                        <label htmlFor="recipeSteps" ><b>Steps</b></label>
                         <input type="text" name="recipeSteps" onChange={this.handleInputChange} value={this.state.recipeSteps} />
-
-
-                        <label htmlFor="recipeTags" ><b>Tags</b></label>
-                        <input type="text" name="recipeTags" onChange={this.handleInputChange} value={this.state.recipeTags} />
 
                         <label htmlFor="recipeIngredients" ><b>Ingredients</b></label>
                         <input type="text" name="recipeIngredients" onChange={this.handleInputChange} value={this.state.recipeIngredients} />
@@ -137,9 +156,11 @@ class Recipeinput extends Component {
                         <label htmlFor="recipeTags" ><b>Tags</b></label>
                         <input type="text" name="recipeTags" onChange={this.handleInputChange} value={this.state.recipeTags} />
 
-                        <label htmlFor="recipeStatus" ><b>Tags</b></label>
-                        <input type="text" name="recipeStatus" onChange={this.handleInputChange} value={this.state.recipeStatus} />
-
+                        <label htmlFor="recipeStatus" ><b>Status</b></label>
+                        <select className="form-control" value={this.state.recipeStatus} onChange={this.handleInputChange}>
+                            <option value="grapefruit">Active</option>
+                            <option value="lime">Hidden</option>
+                        </select>
 
                         <button type="submit">Submit</button> 
                     </div>

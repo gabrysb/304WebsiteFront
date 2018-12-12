@@ -34,11 +34,11 @@ class Card extends Component {
         let toolTipMessage;
 
         if(this.state.bookmarked){
-            bookkmarkIcon = <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            bookkmarkIcon = <span className="glyphicon glyphicon-heart" aria-hidden="true"></span>
             toolTipMessage = "unbookmark this";
         }
         else{
-            bookkmarkIcon = <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+            bookkmarkIcon = <span className="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
             toolTipMessage = "bookmark this";
         }
 
