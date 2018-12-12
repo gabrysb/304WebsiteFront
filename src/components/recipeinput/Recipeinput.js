@@ -105,6 +105,7 @@ class Recipeinput extends Component {
         return (
 
             <div className="loginForm">
+                <h2>Submit Recipe</h2>
                 <form onSubmit={this.handleLoginClick}>
                     <div className="container">
                         <label htmlFor="recipeImage" ><b>Image</b></label>

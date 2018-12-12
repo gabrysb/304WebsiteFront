@@ -31,7 +31,7 @@ class App extends Component {
     //we setup our initial state in the constuctor
     //by default we will show login component at the first time the app starts
     this.state = {
-      currentView : "recipeinput",
+      currentView : "signup",
       items : [],
       homeItems: [],
       currentArticle: null,
