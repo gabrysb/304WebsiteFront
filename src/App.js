@@ -90,6 +90,7 @@ class App extends Component {
   updateBlogsData(err, data){
 
     if(err){
+      console.log("reached here")
         return;
     }
     //when displaying home screen we need to show only portion of the body
@@ -98,13 +99,13 @@ class App extends Component {
     //to display home thumbnails
     let data2 = data.map( item => {
 
-      let shortBody = item.body.substring(0, 128);
+      let shortBody = item.description.substring(0, 128);
 
       return {
         id: item.id,
         title: item.title,
         authorId : item.authorId,
-        body: shortBody,
+        description: shortBody,
         registrationDate: item.registrationDate,
         photo: item.photo
       }
@@ -114,6 +115,7 @@ class App extends Component {
       items : data,
       homeItems: data2,
     });
+    
 
     this.showHome();
 
@@ -254,7 +256,7 @@ class App extends Component {
       whatToRender = <Account />;
     }
     else if(this.state.currentView === "recipes"){
-      whatToRender = <Recipes />;
+      whatToRender = <Grid items={this.state.homeItems} colClass="col-m-3" onClick={this.handleThumbnailClicked} rowLength={4} />
     }
     else if(this.state.currentView === "recipeinput"){
       whatToRender = <Recipeinput />;

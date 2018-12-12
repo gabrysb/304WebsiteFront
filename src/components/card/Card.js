@@ -34,11 +34,11 @@ class Card extends Component {
         let toolTipMessage;
 
         if(this.state.bookmarked){
-            bookkmarkIcon = <FontAwesome name='fas fa-bookmark' className="bookmark bookmarked" size="3x" />
+            bookkmarkIcon = <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
             toolTipMessage = "unbookmark this";
         }
         else{
-            bookkmarkIcon = <FontAwesome name='fas fa-bookmark' className="bookmark" size="3x" />
+            bookkmarkIcon = <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
             toolTipMessage = "bookmark this";
         }
 
@@ -53,7 +53,7 @@ class Card extends Component {
                     <span className="tooltiptext">{toolTipMessage}</span>
                     {bookkmarkIcon}
                 </span>
-                <img src={this.props.image} alt={this.props.imgAlt} style={{width: '100%'}} />
+                <img className="test" src={this.props.image} alt={this.props.imgAlt} style={{width: '100%'}} />
                 <div className="container">
                     <button onClick={this.onClickHandler} className="linkButton"><h4><b>{this.props.title}</b></h4></button>
                     <p>{this.props.article}</p> 
