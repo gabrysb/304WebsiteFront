@@ -116,9 +116,6 @@ class App extends Component {
       homeItems: data2,
     });
     
-
-    this.showHome();
-
   }
 
   //this function will be called by the login component when the usre tries to sign in

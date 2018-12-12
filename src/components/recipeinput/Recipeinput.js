@@ -16,7 +16,7 @@ class Recipeinput extends Component {
             recipeCat: '',
             recipeSteps: '',
             recipeImage: '',
-            recipeStatus: '',
+            recipeStatus: 'active',
             uploadStatus: false
             /* errors : {
                 recipeName: false,
@@ -25,7 +25,7 @@ class Recipeinput extends Component {
         };
         
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.handleSubmitClick = this.handleSubmitClick.bind(this);
+        this.handleLoginClick = this.handleLoginClick.bind(this);
         this.handleUploadImage = this.handleUploadImage.bind(this);
     }
 
@@ -43,9 +43,9 @@ class Recipeinput extends Component {
         if (this.files && this.files[0]) {
             var reader = new FileReader();
 
-            reader.onload = function (e) {
+            reader.onload = function (event) {
                 $('#imgPrev')
-                    .attr('src', e.target.result);
+                    .attr('src', event.target.result);
             };
 
             reader.readAsDataURL(this.files[0]);
@@ -59,25 +59,37 @@ class Recipeinput extends Component {
         data.append('file', this.uploadInput.files[0]);
         data.append('filename', this.fileName.value);
     
-        axios.post('http://localhost:3000/upload', data)
-            .then(function (response) {
-                this.setState({ imageURL: `http://localhost:3000/${'body'.file}`, uploadStatus: true });
-            })
-            .catch(function (error) {
-                console.log(error);
+        fetch('http://localhost:8080/upload', {
+            method: 'POST',
+            body: data,
+          })
+          .then((response) => {
+            response.json().then((body) => {
+              this.setState({ recipeImage: `http://localhost:8080/${'body'.file}` });
             });
+          });
       }
 
 
-    handleSubmitClick(event){
+    handleLoginClick(event){
 
         this.handleUploadImage()
         //prevent form submission
         event.preventDefault();
 
         var data = {
-            'testField': this.state.testField
+            title: this.status.recipeName,
+                authorId: this.status.recipeDesc,
+                description: this.status.recipeDesc,
+                ingredients: this.status.recipeIngredients,
+                steps: this.status.recipeSteps,
+                photo: this.status.recipeImage, 
+                keywords: this.status.recipeTags,
+                category: this.status.recipeCat,
+                status: this.status.recipeName
         }
+
+        console.log(data)
 
         var myJSON = JSON.stringify(data);
 
@@ -98,8 +110,9 @@ class Recipeinput extends Component {
                 category: this.status.recipeCat,
                 status: this.status.recipeName
             })
+        
         })
-
+        
         /* //create new object to assign new error values
         let newErrors = {};
 
@@ -122,7 +135,6 @@ class Recipeinput extends Component {
 
     
 
-
     render() {
 
         return (
@@ -133,7 +145,7 @@ class Recipeinput extends Component {
                     <div className="container">
                         <label htmlFor="recipeImage" ><b>Image</b></label>
                         <p>
-                        <input className="form-control-file" ref={(ref) => { this.fileName = ref; }} type="file" name="recipeImage" onChange={this.handleInputChange} value={this.state.recipeImage} /></p>
+                        <input className="form-control-file" ref={(ref) => { this.uploadInput = ref; }} type="file" name="recipeImage" onChange={this.handleInputChange} value={this.state.recipeImage} /></p>
                         <img id="imgPrev" src="http://placehold.it/180" alt="your image" />
                         
                         <p></p>
@@ -158,8 +170,8 @@ class Recipeinput extends Component {
 
                         <label htmlFor="recipeStatus" ><b>Status</b></label>
                         <select className="form-control" value={this.state.recipeStatus} onChange={this.handleInputChange}>
-                            <option value="grapefruit">Active</option>
-                            <option value="lime">Hidden</option>
+                            <option value="active">Active</option>
+                            <option value="hidden">Hidden</option>
                         </select>
 
                         <button type="submit">Submit</button> 
