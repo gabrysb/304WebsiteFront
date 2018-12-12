@@ -101,14 +101,12 @@ class Header extends Component {
                 <button type="button" onClick={this.logInClick} className="btn btn-light">Log In</button>
                 <button type="button" onClick={this.recipeInpClick} className="btn btn-light">Recipe Input</button>
                 <button type="button" onClick={this.recipesClick} className="btn btn-light">All Recipes</button>
-                <button type="button" onClick={this.accountClick} className="btn btn-light">My Account</button>
-                <button type="button" onClick={this.testClick} className="btn btn-light">Test</button>
-                </div>
+                <button type="button" onClick={this.accountClick} className="btn btn-light">My Account</button>                </div>
                 <div className="header-right">
                     <div className="search-container">
                         <form action="">
                             <input type="text" placeholder="Search.." name="txtSearch" onChange={this.handleTextChange} value={this.state.searchTerm}/>
-                            <button type="submit" onClick={(e) =>{ e.preventDefault(); this.props.onSearchClick(this.state.searchTerm)} } className="btn btn-default" aria-label="Search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                            <button type="submit" onClick={(e) =>{ e.preventDefault(); this.props.onSearchClick(this.state.searchTerm)} } className="btn btn-default" aria-label="Search"><span className="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                         </form>
                     </div>
                 </div>

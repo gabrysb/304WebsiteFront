@@ -1,6 +1,6 @@
 
 .loginForm {
-    width: 30%;
+    width: 60%;
     margin: 20px auto;
     border: 3px solid #f1f1f1;
 }
@@ -14,9 +14,26 @@
     box-sizing: border-box;
 }
 
+h2{
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+.form-control-file{
+    background-color: #f1f1f1;
+    
+}
+
+img{
+    max-width:180px;
+  }
+  input[type=file]{
+  padding:10px;
+  }
+
 /* Set a style for all buttons */
 .loginForm button {
-    background-color: #4CAF50;
+    background-color: rgb(4, 23, 109);
     color: white;
     padding: 14px 20px;
     margin: 8px 0px;
@@ -38,27 +55,9 @@
     background-color: #f44336;
 }
 
-/* Center the avatar image inside this container */
-.imgcontainer {
-    text-align: center;
-    margin: 12px 0 12px 0;
-}
-
-/* Avatar image */
-.loginForm img.avatar {
-    width: 25%;
-    border-radius: 50%;
-}
-
 /* Add padding to containers */
 .container {
     padding: 16px;
-}
-
-/* The "Forgot password" text */
-span.psw {
-    padding-top: 16px;
-    margin-left: 65%;
 }
 
 .loginForm .error {
@@ -80,18 +79,18 @@ span.psw {
 
 @media only screen and (min-width: 768px){
     .loginForm {
-        width: 50%;
+        width: 60%;
     }
 }
 
 @media only screen and (min-width: 992px){
     .loginForm {
-        width: 40%;
+        width: 60%;
     }
 }
 
 @media only screen and (min-width: 1200px){
     .loginForm {
-        width: 30%;
+        width: 60%;
     }
 }

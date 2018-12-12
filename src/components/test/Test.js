@@ -31,12 +31,22 @@ class Test extends Component {
 
         //prevent form submission
         event.preventDefault();
-        const data = new FormData(event.target);
-        
-        fetch(' http://localhost:8080/api/v1.0/test', {
-        method: 'POST',
-        body: data,
-        });
+        var data = {
+            'testField': this.state.testField
+        }
+
+        var myJSON = JSON.stringify(data);
+
+        fetch('http://localhost:8080/api/v1.0/test', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                testField: this.state.testField
+            })
+        })
 
         /* //create new object to assign new error values
         let newErrors = {};

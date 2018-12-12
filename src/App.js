@@ -31,7 +31,7 @@ class App extends Component {
     //we setup our initial state in the constuctor
     //by default we will show login component at the first time the app starts
     this.state = {
-      currentView : "test",
+      currentView : "signup",
       items : [],
       homeItems: [],
       currentArticle: null,
@@ -90,6 +90,7 @@ class App extends Component {
   updateBlogsData(err, data){
 
     if(err){
+      console.log("reached here")
         return;
     }
     //when displaying home screen we need to show only portion of the body
@@ -98,13 +99,13 @@ class App extends Component {
     //to display home thumbnails
     let data2 = data.map( item => {
 
-      let shortBody = item.body.substring(0, 128);
+      let shortBody = item.description.substring(0, 128);
 
       return {
         id: item.id,
         title: item.title,
         authorId : item.authorId,
-        body: shortBody,
+        description: shortBody,
         registrationDate: item.registrationDate,
         photo: item.photo
       }
@@ -114,9 +115,7 @@ class App extends Component {
       items : data,
       homeItems: data2,
     });
-
-    this.showHome();
-
+    
   }
 
   //this function will be called by the login component when the usre tries to sign in
@@ -133,7 +132,7 @@ class App extends Component {
         
         //if login successful we need to keep track of username and password 
         //and show user home screen
-       this.api.getBlogs(12, 1, this.updateBlogsData);
+       this.api.getRecipes(12, 1, this.updateBlogsData);
 
     });
 
@@ -221,7 +220,7 @@ class App extends Component {
   //otherwise setting state will not work properly
   componentDidMount(){
 
-      //window.history.pushState("object or string", "Title", "/test");
+    new CallAPI().getRecipes(12, 1, this.updateBlogsData);
     
   }
 
@@ -254,7 +253,7 @@ class App extends Component {
       whatToRender = <Account />;
     }
     else if(this.state.currentView === "recipes"){
-      whatToRender = <Recipes />;
+      whatToRender = <Grid items={this.state.homeItems} colClass="col-m-3" onClick={this.handleThumbnailClicked} rowLength={4} />
     }
     else if(this.state.currentView === "recipeinput"){
       whatToRender = <Recipeinput />;
