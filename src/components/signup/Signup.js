@@ -9,7 +9,13 @@ class Signup extends Component {
     constructor(props){
         super(props);
 
+        this.state = {
+            testField: ''
+        };
         
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.handleLoginClick = this.handleLoginClick.bind(this);
+
     }
 
     SignupSchema =  Yup.object().shape({

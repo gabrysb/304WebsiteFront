@@ -31,7 +31,7 @@ class App extends Component {
     //we setup our initial state in the constuctor
     //by default we will show login component at the first time the app starts
     this.state = {
-      currentView : "test",
+      currentView : "recipeinput",
       items : [],
       homeItems: [],
       currentArticle: null,
@@ -133,7 +133,7 @@ class App extends Component {
         
         //if login successful we need to keep track of username and password 
         //and show user home screen
-       this.api.getBlogs(12, 1, this.updateBlogsData);
+       this.api.getRecipes(12, 1, this.updateBlogsData);
 
     });
 
@@ -221,7 +221,7 @@ class App extends Component {
   //otherwise setting state will not work properly
   componentDidMount(){
 
-      //window.history.pushState("object or string", "Title", "/test");
+    new CallAPI().getRecipes(12, 1, this.updateBlogsData);
     
   }
 
