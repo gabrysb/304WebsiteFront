@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './Recipeinput.css';
-import $ from 'jquery';
-import axios from "axios";
+import FileBase64 from 'react-file-base64';
 
 class Recipeinput extends Component {
   
@@ -9,15 +8,14 @@ class Recipeinput extends Component {
         super(props);
 
         this.state = {
-            recipeName: '',
+            recipeName: ' ',
             recipeDesc: '',
             recipeTags: '',
             recipeIngredients: '',
             recipeCat: '',
             recipeSteps: '',
-            recipeImage: '',
             recipeStatus: 'active',
-            uploadStatus: false
+            files: []
             /* errors : {
                 recipeName: false,
                 recipeDesc: false
@@ -26,7 +24,12 @@ class Recipeinput extends Component {
         
         this.handleInputChange = this.handleInputChange.bind(this);
         this.handleLoginClick = this.handleLoginClick.bind(this);
-        this.handleUploadImage = this.handleUploadImage.bind(this);
+        this.getFiles = this.getFiles.bind(this);
+    }
+
+    // Callback~
+    getFiles(files){
+        this.setState({ files: files })
     }
 
     handleInputChange(event){
@@ -40,52 +43,29 @@ class Recipeinput extends Component {
             [name]: value
         });
 
-        if (this.files && this.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (event) {
-                $('#imgPrev')
-                    .attr('src', event.target.result);
-            };
-
-            reader.readAsDataURL(this.files[0]);
-        }
     }
-
-    handleUploadImage(ev) {
-        ev.preventDefault();
-    
-        const data = new FormData();
-        data.append('file', this.uploadInput.files[0]);
-        data.append('filename', this.fileName.value);
-    
-        fetch('http://localhost:8000/upload', {
-          method: 'POST',
-          body: data,
-        }).then((response) => {
-          response.json().then((body) => {
-            this.setState({ imageURL: `http://localhost:8000/${body.file}` });
-          });
-        });
-      }
-
 
     handleLoginClick(event){
 
-        this.handleUploadImage()
         //prevent form submission
         event.preventDefault();
 
+        const bas64str = this.state.files
+        var fileName = this.state.files.file.name
+
+        console.log(this.props.userId)
         var data = {
-            title: this.status.recipeName,
-                authorId: this.status.recipeDesc,
-                description: this.status.recipeDesc,
-                ingredients: this.status.recipeIngredients,
-                steps: this.status.recipeSteps,
-                photo: this.status.imageURL, 
-                keywords: this.status.recipeTags,
-                category: this.status.recipeCat,
-                status: this.status.recipeName
+            title: this.state.recipeName,
+            authorId: this.props.userId,
+            description: this.state.recipeDesc,
+            ingredients: this.state.recipeIngredients,
+            steps: this.state.recipeSteps,
+            photo: 'http://localhost:8080/img/'+fileName, 
+            keywords: this.state.recipeTags,
+            category: this.state.recipeCat,
+            status: this.state.recipeName,
+            fileName: fileName,
+            encodedStr: bas64str
         }
 
         console.log(data)
@@ -96,39 +76,23 @@ class Recipeinput extends Component {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                title: this.status.recipeName,
-                authorId: this.status.recipeDesc,
-                description: this.status.recipeDesc,
-                ingredients: this.status.recipeIngredients,
-                steps: this.status.recipeSteps,
-                photo: this.status.imageURL, 
-                keywords: this.status.recipeTags,
-                category: this.status.recipeCat,
-                status: this.status.recipeName
+                title: this.state.recipeName,
+            authorId: this.props.userId,
+            description: this.state.recipeDesc,
+            ingredients: this.state.recipeIngredients,
+            steps: this.state.recipeSteps,
+            photo: 'http://localhost:8080/img/'+fileName, 
+            keywords: this.state.recipeTags,
+            category: this.state.recipeCat,
+            status: this.state.recipeName,
+            fileName: fileName,
+            encodedStr: bas64str
             })
         
         })
-        
-        /* //create new object to assign new error values
-        let newErrors = {};
-
-        newErrors.recipeName = this.state.recipeName === '' ? true:false;
-        newErrors.recipeDesc = this.state.recipeDesc === '' ? true:false;    
-        
-       if(newErrors.recipeName === false && newErrors.recipeDesc === false){
-            this.props.onSubmit({
-                username: this.state.recipeName,
-                password: this.state.recipeDesc,
-                rememberMe: false
-            })
-       }
-       else{
-            this.setState({errors:newErrors});
-       } */
-
        
     }
 
@@ -142,16 +106,6 @@ class Recipeinput extends Component {
                 <h2>Submit Recipe</h2>
                 <form onSubmit={this.handleLoginClick}>
                     <div className="container">
-                        <label htmlFor="recipeImage" ><b>Image</b></label>
-                        <p>
-                        <input className="form-control-file" ref={(ref) => { this.uploadInput = ref; }} type="file" name="recipeImage" onChange={this.handleInputChange} value={this.state.recipeImage} /></p>
-                        <img src={this.state.imageURL} alt="img" />
-                        <div>
-                            <input ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Enter the desired name of file" />
-                        </div>
-                        
-                        
-                        <p></p>
                         <label htmlFor="recipeName"><b>Recipe Name</b></label>
                         <input type="text" name="recipeName" onChange={this.handleInputChange} value={this.state.recipeName} />
 
@@ -176,6 +130,14 @@ class Recipeinput extends Component {
                             <option value="active">Active</option>
                             <option value="hidden">Hidden</option>
                         </select>
+
+                        <label htmlFor="recipeImage" ><b>Image</b></label>
+                        
+                        {/* <input className="form-control-file" type="file" name="recipeImage" onChange={this.handleInputChange} value={this.state.recipeImage} /></p>
+                        <img src={this.state.imageURL} alt="img" /> */}
+                        <FileBase64
+                            multiple={ false }
+                            onDone={this.getFiles} />
 
                         <button type="submit">Submit</button> 
                     </div>

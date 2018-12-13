@@ -124,6 +124,8 @@ class App extends Component {
 
     this.api.login(userData, (err, data) => {
 
+        console.log(data)
+
         if(err){
           //we need to notify the login component to display error in username or password
           this.setState({loginError: true})
@@ -132,7 +134,8 @@ class App extends Component {
         }
         
         //if login successful we need to keep track of username and password
-        this.setState({userId: userData.id});
+        this.setState({userId: data.userId});
+        console.log('id = ' + this.state.userId)
         //and show user home screen
        this.api.getRecipes(12, 1, this.updateBlogsData);
 
@@ -247,7 +250,7 @@ class App extends Component {
       whatToRender = <Grid items={this.state.homeItems} colClass="col-m-3" onClick={this.handleThumbnailClicked} rowLength={4} />
     }
     else if(this.state.currentView === "recipeinput"){
-      whatToRender = <Recipeinput />;
+      whatToRender = <Recipeinput userId={this.state.userId}/>;
     }
     else if(this.state.currentView === "test"){
       whatToRender = <Test />;
