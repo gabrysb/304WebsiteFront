@@ -5,6 +5,7 @@ import config from './config';
 class CallAPI {
 
     login(loginData, callback){
+        console.log(loginData)
 
         if(loginData === null){
             callback("no login data were provided");
@@ -17,7 +18,7 @@ class CallAPI {
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type' : 'application/json', 
-                'Authorization' : 'Basic ' + window.btoa(loginData.username + ':' + loginData.password)       
+                'Authorization' : 'Basic ' + window.atob(loginData.username+':'+loginData.password)
             }
         }).then(res => {
             
