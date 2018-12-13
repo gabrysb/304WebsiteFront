@@ -52,22 +52,21 @@ class Recipeinput extends Component {
         }
     }
 
-    handleUploadImage(event) {
-        event.preventDefault();
+    handleUploadImage(ev) {
+        ev.preventDefault();
     
         const data = new FormData();
         data.append('file', this.uploadInput.files[0]);
         data.append('filename', this.fileName.value);
     
-        fetch('http://localhost:8080/upload', {
-            method: 'POST',
-            body: data,
-          })
-          .then((response) => {
-            response.json().then((body) => {
-              this.setState({ recipeImage: `http://localhost:8080/${'body'.file}` });
-            });
+        fetch('http://localhost:8000/upload', {
+          method: 'POST',
+          body: data,
+        }).then((response) => {
+          response.json().then((body) => {
+            this.setState({ imageURL: `http://localhost:8000/${body.file}` });
           });
+        });
       }
 
 
@@ -83,7 +82,7 @@ class Recipeinput extends Component {
                 description: this.status.recipeDesc,
                 ingredients: this.status.recipeIngredients,
                 steps: this.status.recipeSteps,
-                photo: this.status.recipeImage, 
+                photo: this.status.imageURL, 
                 keywords: this.status.recipeTags,
                 category: this.status.recipeCat,
                 status: this.status.recipeName
@@ -105,7 +104,7 @@ class Recipeinput extends Component {
                 description: this.status.recipeDesc,
                 ingredients: this.status.recipeIngredients,
                 steps: this.status.recipeSteps,
-                photo: this.status.recipeImage, 
+                photo: this.status.imageURL, 
                 keywords: this.status.recipeTags,
                 category: this.status.recipeCat,
                 status: this.status.recipeName
@@ -146,7 +145,11 @@ class Recipeinput extends Component {
                         <label htmlFor="recipeImage" ><b>Image</b></label>
                         <p>
                         <input className="form-control-file" ref={(ref) => { this.uploadInput = ref; }} type="file" name="recipeImage" onChange={this.handleInputChange} value={this.state.recipeImage} /></p>
-                        <img id="imgPrev" src="http://placehold.it/180" alt="your image" />
+                        <img src={this.state.imageURL} alt="img" />
+                        <div>
+                            <input ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Enter the desired name of file" />
+                        </div>
+                        
                         
                         <p></p>
                         <label htmlFor="recipeName"><b>Recipe Name</b></label>

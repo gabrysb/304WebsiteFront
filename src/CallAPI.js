@@ -18,7 +18,7 @@ class CallAPI {
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Content-Type' : 'application/json', 
-                'Authorization' : 'Basic ' + window.atob(loginData.username+':'+loginData.password)
+                'Authorization' : 'Basic ' + window.btoa(loginData.username+':'+loginData.password)
             }
         }).then(res => {
             

@@ -38,6 +38,7 @@ class App extends Component {
         username: '',
         password: ''
       },
+      userId: '',
       loginError: false
     };
 
@@ -51,7 +52,6 @@ class App extends Component {
     this.showSignup = this.showSignup.bind(this);
     this.showLogin = this.showLogin.bind(this);
     this.showRecipeInput = this.showRecipeInput.bind(this);
-    this.showAllRecipes = this.showAllRecipes.bind(this);
     this.showAccount = this.showAccount.bind(this);
     this.showTest = this.showTest.bind(this);
 
@@ -131,7 +131,8 @@ class App extends Component {
           return;
         }
         
-        //if login successful we need to keep track of username and password 
+        //if login successful we need to keep track of username and password
+        this.setState({userId: userData.id});
         //and show user home screen
        this.api.getRecipes(12, 1, this.updateBlogsData);
 
@@ -179,17 +180,6 @@ class App extends Component {
       this.setState({currentArticle: null});
     
     this.setState({currentView:"recipeinput"});
-     
-   
-  }
-
-  showAllRecipes(){
-    
-    //in case we were showing an article, remove it from the state
-    if(this.state.currentArticle !== null)
-      this.setState({currentArticle: null});
-    
-    this.setState({currentView:"recipes"});
      
    
   }
