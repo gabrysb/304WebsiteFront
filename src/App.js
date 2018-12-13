@@ -10,7 +10,6 @@ import Grid from './components/grid/Grid';
 import Login from './components/login/Login';
 import Signup from './components/signup/Signup';
 import Account from './components/account/Account';
-import Recipes from './components/recipes/Recipes';
 import Recipeinput from './components/recipeinput/Recipeinput';
 import Test from './components/test/Test';
 
@@ -115,6 +114,8 @@ class App extends Component {
       items : data,
       homeItems: data2,
     });
+
+    this.showHome();
     
   }
 
@@ -265,7 +266,7 @@ class App extends Component {
     // pass the thumbnails and set the css responsive class
     return (
       <div>
-        <Header title="Yummy" logo={logo} onSearchClick={this.onSearch} backgroundColor="#140B47" onClickTitle={this.showHome} onClickSignup={this.showSignup} onClickLogIn={this.showLogin} onClickRecipeInput={this.showRecipeInput} onClickRecipes={this.showAllRecipes} onClickAccount={this.showAccount} onClickTest={this.showTest} />
+        <Header title="Yummy" logo={logo} onSearchClick={this.onSearch} backgroundColor="#140B47" onClickTitle={this.showHome} onClickSignup={this.showSignup} onClickLogIn={this.showLogin} onClickRecipeInput={this.showRecipeInput} onClickRecipes={this.showHome} onClickAccount={this.showAccount} onClickTest={this.showTest} />
         {whatToRender}
       </div>
     );
