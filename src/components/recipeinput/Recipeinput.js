@@ -50,7 +50,7 @@ class Recipeinput extends Component {
         //prevent form submission
         event.preventDefault();
 
-        const bas64str = this.state.files
+        const bas64str = String(this.state.files)
         var fileName = this.state.files.file.name
 
         console.log(this.props.userId)
@@ -80,16 +80,16 @@ class Recipeinput extends Component {
             },
             body: JSON.stringify({
                 title: this.state.recipeName,
-            authorId: this.props.userId,
-            description: this.state.recipeDesc,
-            ingredients: this.state.recipeIngredients,
-            steps: this.state.recipeSteps,
-            photo: 'http://localhost:8080/img/'+fileName, 
-            keywords: this.state.recipeTags,
-            category: this.state.recipeCat,
-            status: this.state.recipeName,
-            fileName: fileName,
-            encodedStr: bas64str
+                authorId: this.props.userId,
+                description: this.state.recipeDesc,
+                ingredients: this.state.recipeIngredients,
+                steps: this.state.recipeSteps,
+                photo: 'http://localhost:8080/img/'+fileName, 
+                keywords: this.state.recipeTags,
+                category: this.state.recipeCat,
+                status: this.state.recipeName,
+                fileName: fileName,
+                encodedStr: bas64str
             })
         
         })
