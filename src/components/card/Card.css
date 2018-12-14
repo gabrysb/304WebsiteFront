@@ -15,7 +15,8 @@ img {
 }
 
 .test{
-    margin-left: 20px;
+    align-self: center;
+    margin-top: 5px;
 }
 
 .container {
@@ -34,6 +35,10 @@ img {
 
 .clickableAwesomeFont {
     cursor: pointer;
+}
+
+.spacing{
+    margin-top: 10px;
 }
 
 .bookmark {

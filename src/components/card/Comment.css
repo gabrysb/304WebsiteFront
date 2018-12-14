@@ -1,0 +1,46 @@
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.callout.secondary {
+  margin-top: 20px;
+  background: white;
+  color: white;
+}
+.comment-list {
+  list-style: none;
+  margin: 0 0 50px 0;
+}
+.comment-list > li {
+  margin: 0 0 20px 0;
+  background: #140B47;
+  padding: 20px;
+}
+.comment-user {
+  display: flex;
+  align-items: center;
+  margin: 0 0 10px 0;
+}
+.comment-user-avatar-wrap {
+  width: 40px;
+  margin-right: 10px;
+}
+.comment-username {
+  margin-right: 5px;
+  color: white;
+  letter-spacing: 1px;
+}
+.on {
+  margin-right: 5px;
+}
+.comment-text {
+  background: white;
+  color: #222;
+  padding: 20px;
+}
+.comment-text :last-child {
+  margin: 0;
+}

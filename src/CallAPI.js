@@ -87,7 +87,23 @@ class CallAPI {
     deleteFavourite(data){
 
     }
-    getFavourites(data){
+    getFavourites(callback){
+        
+        let url = config.api_get_lists;
+        axios.get(url,{ 
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type' : 'application/json'        
+            }
+        }).then(res => {
+            
+            console.log(res.data);
+            callback(null, res.data);
+
+        }).catch( (error) => {
+            console.log("the following error has occured:" + error);
+            callback(error);
+        });
         
     }
     

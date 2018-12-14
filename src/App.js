@@ -30,16 +30,15 @@ class App extends Component {
     //we setup our initial state in the constuctor
     //by default we will show login component at the first time the app starts
     this.state = {
-      currentView : "signup",
+      currentView : "login",
       items : [],
       homeItems: [],
       currentArticle: null,
-      user_data: {
-        username: '',
-        password: ''
-      },
+      username: '',
       userId: '',
-      loginError: false
+      loginError: false,
+      isShow: false,
+      loggedIn: false
     };
 
     //bind all the functions in the class so that the keyword "this"
@@ -54,6 +53,7 @@ class App extends Component {
     this.showRecipeInput = this.showRecipeInput.bind(this);
     this.showAccount = this.showAccount.bind(this);
     this.showTest = this.showTest.bind(this);
+    this.recipeInp = this.recipeInp.bind(this);
 
   }
   //this function will be called by the header component when the user click search button
@@ -69,6 +69,8 @@ class App extends Component {
       return;
     
     let len = this.state.items.length;
+
+    this.setState({isShow: true})
     
     //iterate through the items and find the one matching the clicked id
     for(let i = 0; i < len ; i++){
@@ -89,7 +91,6 @@ class App extends Component {
   updateBlogsData(err, data){
 
     if(err){
-      console.log("reached here")
         return;
     }
     //when displaying home screen we need to show only portion of the body
@@ -134,14 +135,22 @@ class App extends Component {
         }
         
         //if login successful we need to keep track of username and password
-        this.setState({userId: data.userId});
+        this.setState({userId: data.userId, username: userData.username, loggedIn: true});
         console.log('id = ' + this.state.userId)
+        console.log('username = ' + this.state.username)
         //and show user home screen
-       this.api.getRecipes(12, 1, this.updateBlogsData);
+        this.api.getRecipes(12, 1, this.updateBlogsData);
 
     });
 
   }
+
+  recipeInp(){
+
+    this.api.getRecipes(12, 1, this.updateBlogsData);
+
+  }
+
   //this will show the home
   showHome(){
     
@@ -213,8 +222,9 @@ class App extends Component {
   //we need to call the data once the component is ready
   //otherwise setting state will not work properly
   componentDidMount(){
+    console.log(this.state.isShow)
 
-    new CallAPI().getRecipes(12, 1, this.updateBlogsData);
+    //new CallAPI().getRecipes(12, 1, this.updateBlogsData);
     
   }
 
@@ -223,13 +233,13 @@ class App extends Component {
     let whatToRender;
 
     if(this.state.currentView === "home"){
-      whatToRender = <Grid items={this.state.homeItems} colClass="col-m-3" onClick={this.handleThumbnailClicked} rowLength={4} />
+      whatToRender = <Grid items={this.state.homeItems} colClass="col-m-3" onClick={this.handleThumbnailClicked} rowLength={4} username={this.state.username} isshow={this.state.isShow}/>
     }
     //becuase our grid component expects an array but we need to show only one item
     //so we will add that item to an array and send the array to the grid
     else if(this.state.currentView === "article"){
       let tempArr = [this.state.currentArticle];
-      whatToRender = <Grid items={tempArr} colClass="col-m-6" onClick={this.handleThumbnailClicked} rowLength={1} />;
+      whatToRender = <Grid items={tempArr} colClass="col-m-6" onClick={this.handleThumbnailClicked} rowLength={1} userId={this.state.userId} username={this.state.username} isShow={this.state.isShow} />;
     }
     else if(this.state.currentView === "login"){
       whatToRender = <Login loginButtonColor="#800011" onSubmit={this.loginUser} loginError={this.state.loginError} foobar={this.showSignup}/>;
@@ -247,10 +257,10 @@ class App extends Component {
       whatToRender = <Account />;
     }
     else if(this.state.currentView === "recipes"){
-      whatToRender = <Grid items={this.state.homeItems} colClass="col-m-3" onClick={this.handleThumbnailClicked} rowLength={4} />
+      whatToRender = <Grid items={this.state.homeItems} colClass="col-m-3" onClick={this.handleThumbnailClicked} rowLength={4} username={this.state.username}/>
     }
     else if(this.state.currentView === "recipeinput"){
-      whatToRender = <Recipeinput userId={this.state.userId}/>;
+      whatToRender = <Recipeinput userId={this.state.userId} onSubmit={this.recipeInp}/>;
     }
     else if(this.state.currentView === "test"){
       whatToRender = <Test />;
@@ -259,7 +269,17 @@ class App extends Component {
     // pass the thumbnails and set the css responsive class
     return (
       <div>
-        <Header title="Yummy" logo={logo} onSearchClick={this.onSearch} backgroundColor="#140B47" onClickTitle={this.showHome} onClickSignup={this.showSignup} onClickLogIn={this.showLogin} onClickRecipeInput={this.showRecipeInput} onClickRecipes={this.showHome} onClickAccount={this.showAccount} onClickTest={this.showTest} />
+        <Header title="Yummy" logo={logo} 
+          onSearchClick={this.onSearch} 
+          backgroundColor="#140B47" 
+          onClickTitle={this.showHome} 
+          onClickSignup={this.showSignup} 
+          onClickLogIn={this.showLogin} 
+          onClickRecipeInput={this.showRecipeInput} 
+          onClickRecipes={this.showHome} 
+          onClickAccount={this.showAccount} 
+          onClickTest={this.showTest} 
+          loggedIn={this.state.loggedIn}/>
         {whatToRender}
       </div>
     );

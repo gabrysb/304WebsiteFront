@@ -97,11 +97,14 @@ class Header extends Component {
             <div className="header" style={this.state.headerStyle}>
                 <img src={this.props.logo} alt="React logo" /><a href="#default" className="logo" onClick={this.handleTitleClick}> {this.props.title}</a>
                 <div className="header-links">
-                <button type="button" onClick={this.signUpClick} className="btn btn-light">Sign Up</button>
-                <button type="button" onClick={this.logInClick} className="btn btn-light">Log In</button>
-                <button type="button" onClick={this.recipeInpClick} className="btn btn-light">Recipe Input</button>
-                <button type="button" onClick={this.recipesClick} className="btn btn-light">All Recipes</button>
-                <button type="button" onClick={this.accountClick} className="btn btn-light">My Account</button>                </div>
+                    {this.props.loggedIn ?  null : <button type="button" onClick={this.signUpClick} className="btn btn-light">Sign Up</button>}
+                    {this.props.loggedIn ?  null : <button type="button" onClick={this.logInClick} className="btn btn-light">Log In</button>}
+                    
+                    <button type="button" onClick={this.recipeInpClick} className="btn btn-light">Recipe Input</button>
+                    <button type="button" onClick={this.recipesClick} className="btn btn-light">All Recipes</button>
+                    {this.props.loggedIn ? <button type="button" onClick={this.accountClick} className="btn btn-light">My Account</button> : null}
+                                
+                </div>
                 <div className="header-right">
                     <div className="search-container">
                         <form action="">

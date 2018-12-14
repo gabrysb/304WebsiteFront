@@ -93,6 +93,8 @@ class Recipeinput extends Component {
             })
         
         })
+
+        this.props.onSubmit();
        
     }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Card.css';
 import './tooltip.css';
-import FontAwesome from 'react-fontawesome';
+import Comment from './Comment';
 
 class Card extends Component {
   
@@ -34,13 +34,15 @@ class Card extends Component {
         let toolTipMessage;
 
         if(this.state.bookmarked){
-            bookkmarkIcon = <span className="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            bookkmarkIcon = <span className="glyphicon glyphicon-heart" aria-hidden="true">Remove Bookmark</span>
             toolTipMessage = "unbookmark this";
         }
         else{
-            bookkmarkIcon = <span className="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+            bookkmarkIcon = <span className="glyphicon glyphicon-heart-empty" aria-hidden="true">Bookmark</span>
             toolTipMessage = "bookmark this";
         }
+
+        console.log("isShow="+this.props.isShow)
 
         return (
 
@@ -58,6 +60,7 @@ class Card extends Component {
                     <button onClick={this.onClickHandler} className="linkButton"><h4><b>{this.props.title}</b></h4></button>
                     <p>{this.props.article}</p> 
                 </div>
+                {this.props.isShow ? <Comment userId={this.props.userId} username={this.props.username}/> : null}
             </div>
            
         );

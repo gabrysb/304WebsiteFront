@@ -4,6 +4,7 @@ import './Grid.css';
 import Card from '../card/Card';
 
 class Grid extends Component {
+    
   
     //we divided the grid into 3 components
     //the grid iteself
@@ -14,6 +15,7 @@ class Grid extends Component {
     //for each grid row we dife a function that will render the rwo data
     //this function recieves the cards to render as an array plus a unique id
     GridRow(cards, id){
+        console.log('grid.js ='+this.props.isShow);
          
         //in case null recieved for cards return to avoid runtime errors
          if(cards == null){
@@ -58,6 +60,9 @@ class Grid extends Component {
                                 article={item.description} 
                                 onClick = {this.props.onClick}
                                 id ={item.id}
+                                userId={this.props.userId}
+                                username={this.props.username}
+                                isShow={this.props.isShow}
                         />
                     </div>
                 )}  
